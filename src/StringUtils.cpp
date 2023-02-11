@@ -1,8 +1,4 @@
-#include "StringUtils.h"
-
-#include <debugapi.h>
-#include <stdarg.h>
-
+#include "HeaderShare.h"
 using namespace std;
 #if !_WIN32
 extern const char** __argv;

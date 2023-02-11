@@ -3,7 +3,7 @@
 #define STRINGUTILS_H
 
 #pragma once
-#include <string>
+#include "HeaderShare.h"
 namespace StringUtils {
 std::string GetCommandLineArg(int inIndex);
 

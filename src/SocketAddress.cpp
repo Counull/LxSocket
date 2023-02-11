@@ -1,5 +1,4 @@
-#include "SocketAddress.h"
-#include <iostream>
+#include "HeaderShare.h"
 SocketAddress::SocketAddress(uint32_t inAddress, uint16_t inProt)
     : mSocketAddr { .sa_family = AF_INET }
 {

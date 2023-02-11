@@ -1,4 +1,5 @@
-#include "SocketAddressFactory.h"
+#include "HeaderShare.h"
+#include <expected>
 #include <gtest/gtest.h>
 
 TEST(SocketCore, CoreTest)
@@ -9,28 +10,33 @@ TEST(SocketCore, CoreTest)
     int nResult = -1;
 
     // Initialize Winsock
-    //进行一次系统初始化
+    // 进行一次系统初始化
     nResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (nResult != 0) 
-    {
+    if (nResult != 0) {
         printf("WSAStartup failed: %d\n", nResult);
-        return ;
+        return;
     }
-    //gethostname依赖wind socket
+    // gethostname依赖wind socket
     nResult = gethostname(szHostName, sizeof(szHostName));
-    if (nResult == 0)
-    {
+    if (nResult == 0) {
         printf("gethostname success: %s\n", szHostName);
-    } 
-    else
-    {
-        printf("gethostname fail(errcode %lu)...\n",::GetLastError());
+    } else {
+        printf("gethostname fail(errcode %lu)...\n", ::GetLastError());
     }
-   
 
-    std::cout << "**********************" <<std::endl;
+    std::cout << "**********************" << std::endl;
     SocketAddressFactory::CreateIPv4FromString("www.baidu.com");
     ASSERT_EQ(1, 1);
-     //资源回收
+    // 资源回收
+
     WSACleanup();
+}
+
+TEST(STD, STDTEST)
+{
+    std::expected<int, int> expected = std::unexpected(5);
+    ASSERT_FALSE(expected);
+    expected = 5;
+    ASSERT_TRUE(expected);
+
 }

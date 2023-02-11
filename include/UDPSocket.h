@@ -3,20 +3,17 @@
 
 #pragma once
 
-
-#include <memory>
-#include "SocketAddress.h"
-
+#include "HeaderShare.h"
 class UDPSocket {
 public:
     ~UDPSocket();
-    int Bind(const SocketAddress& address);
-    int SendTo(const void* inData, int inLen, const SocketAddress& sendTo);
-    int ReciveFrom(void* inBuffer, int inLen, SocketAddress& outFtom);
+    // std::expected 或许我应该用rust写这玩意
+    std::expected<int, SocketError> Bind(const SocketAddress& address);
+    std::expected<int, SocketError> SendTo(const void* inData, int inLen, const SocketAddress& sendTo);
+    std::expected<int, SocketError> ReciveFrom(void* inBuffer, int inLen, SocketAddress& outFtom);
 
 private:
     friend class SocketUtil;
-
     UDPSocket(SOCKET inSocket);
     SOCKET mSocket;
 };

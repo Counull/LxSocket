@@ -1,9 +1,4 @@
-
-#include <memory>
-#include <optional>
-#include <utility>
-#include <vcruntime_string.h>
-#include "SocketAddressFactory.h"
+#include "HeaderShare.h"
 using namespace std;
 std::optional<SocketAddressPtr> SocketAddressFactory::CreateIPv4FromString(const std::string& inString)
 {
