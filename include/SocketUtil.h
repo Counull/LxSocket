@@ -5,7 +5,6 @@
 #pragma once
 #include "HeaderShare.h"
 
-
 enum SocketAddressFamily {
     INET = AF_INET,
     INET6 = AF_INET6
@@ -21,6 +20,8 @@ public:
 
     static UDPSocketPtr CreateUDPSocket(SocketAddressFamily inFamily);
     static TCPSocketPtr CreateTCPSocket(SocketAddressFamily inFamily);
+
+  
 
 private:
 };

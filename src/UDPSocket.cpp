@@ -1,5 +1,7 @@
 #include "HeaderShare.h"
+#include "SocketUtil.h"
 #include <expected>
+#include <winerror.h>
 #include <winsock2.h>
 UDPSocket::~UDPSocket()
 {
@@ -40,4 +42,16 @@ std::expected<int, SocketError> UDPSocket::ReciveFrom(void* inBuffer, int inLen,
     }
     SocketUtil::ReportError("UDPSocket::ReciveFrom");
     return std::unexpected(SocketUtil::GetLastError());
+}
+
+std::expected<int, SocketError> UDPSocket::setNoneBlockMode(bool shouldBeNonBlocking)
+{
+    u_long arg = shouldBeNonBlocking ? 1 : 0;
+    int result = ioctlsocket(mSocket, FIONBIO, &arg);
+
+    if (result == SOCKET_ERROR) {
+        SocketUtil::ReportError("UDPSocket::setNoneBlockMode");
+        return std::unexpected(SocketUtil::GetLastError());
+    }
+    return NO_ERROR;
 }

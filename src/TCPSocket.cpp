@@ -12,6 +12,7 @@ std::expected<int, SocketError> TCPSocket::Connect(const SocketAddress& inAddres
         SocketUtil::ReportError("TCPSocket::Connect");
         return std::unexpected(SocketUtil::GetLastError());
     }
+    
 
     return NO_ERROR;
 }

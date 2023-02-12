@@ -60,16 +60,17 @@ TEST(SocketCore, TCPSocket)
     Sleep(50);
     auto sendLen = TCPSocket->Send(data, len);
     ASSERT_EQ(len, sendLen);
-    constexpr size_t BUFFER_SIZE = 1000;
+    constexpr size_t BUFFER_SIZE = 100;
     char buffer[BUFFER_SIZE];
 
-    // recv test
-    //  auto recvLen = TCPSocket->Recvive(buffer, BUFFER_SIZE);
-    //  ASSERT_TRUE(recvLen);
-    //  auto recvStr = new char[recvLen.value() + 1];
-    //  recvStr[recvLen.value()] = '\0';
-    //  memcpy(recvStr, buffer, recvLen.value());
-    //  std::cout << recvStr << std::endl;
+    //  recv test
+    auto recvLen = TCPSocket->Recvive(buffer, BUFFER_SIZE);
+    ASSERT_TRUE(recvLen);
+    auto recvStr = new char[recvLen.value() + 1];
+    recvStr[recvLen.value()] = '\0';
+    memcpy(recvStr, buffer, recvLen.value());
+    std::cout << recvStr << std::endl;
+    delete[] recvStr;
 
     SocketUtil::CleanUp();
 }

@@ -11,6 +11,7 @@ public:
     std::expected<int, SocketError> Bind(const SocketAddress& address);
     std::expected<int, SocketError> SendTo(const void* inData, int inLen, const SocketAddress& sendTo);
     std::expected<int, SocketError> ReciveFrom(void* inBuffer, int inLen, SocketAddress& outFtom);
+    std::expected<int, SocketError> setNoneBlockMode(bool shouldBeNonBlocking);
 
 private:
     friend class SocketUtil;
