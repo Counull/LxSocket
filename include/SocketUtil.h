@@ -5,12 +5,12 @@
 #pragma once
 #include "HeaderShare.h"
 
+
 enum SocketAddressFamily {
     INET = AF_INET,
     INET6 = AF_INET6
 };
 
-using UDPSocketPtr = std::shared_ptr<UDPSocket>;
 class SocketUtil {
 public:
     static bool StaticInit();
@@ -20,6 +20,7 @@ public:
     static SocketError GetLastError();
 
     static UDPSocketPtr CreateUDPSocket(SocketAddressFamily inFamily);
+    static TCPSocketPtr CreateTCPSocket(SocketAddressFamily inFamily);
 
 private:
 };

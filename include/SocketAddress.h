@@ -15,7 +15,7 @@ public:
 
 private:
     friend class UDPSocket;
-
+    friend class TCPSocket;
     sockaddr mSocketAddr;
     inline sockaddr_in* GetAsSockAddrIn() { return reinterpret_cast<sockaddr_in*>(&mSocketAddr); };
 };

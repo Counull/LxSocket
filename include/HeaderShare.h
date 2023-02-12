@@ -32,6 +32,7 @@ const int SOCKET_ERROR = -1;
 #include <cassert>
 #include <deque>
 #include <expected>
+#include <iostream>
 #include <list>
 #include <memory>
 #include <optional>
@@ -45,8 +46,10 @@ using SocketError = int;
 
 #include "SocketAddress.h"
 #include "SocketAddressFactory.h"
-#include "SocketUtil.h"
-#include "StringUtils.h"
-#include "UDPSocket.h"
 
+
+#include "StringUtils.h"
+#include "TCPSocket.h"
+#include "UDPSocket.h"
+#include "SocketUtil.h"
 #endif

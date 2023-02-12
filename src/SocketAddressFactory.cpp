@@ -39,5 +39,5 @@ std::optional<SocketAddressPtr> SocketAddressFactory::CreateIPv4FromString(const
 
     auto toRet = std::make_shared<SocketAddress>(*result->ai_addr);
 
-    return std::make_optional(std::move(toRet));
+    return std::make_optional(toRet);
 }

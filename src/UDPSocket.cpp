@@ -1,8 +1,15 @@
 #include "HeaderShare.h"
 #include <expected>
+#include <winsock2.h>
 UDPSocket::~UDPSocket()
 {
+    closesocket(mSocket);
 }
+UDPSocket::UDPSocket(SOCKET inSocket)
+    : mSocket(inSocket)
+{
+}
+
 std::expected<int, SocketError> UDPSocket::Bind(const SocketAddress& address)
 {
     int err = bind(mSocket, &address.mSocketAddr, address.GetSize());

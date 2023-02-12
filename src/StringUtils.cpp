@@ -1,4 +1,5 @@
 #include "HeaderShare.h"
+
 using namespace std;
 #if !_WIN32
 extern const char** __argv;
@@ -47,7 +48,7 @@ void StringUtils::Log(const char* inFormat, ...)
 
     va_list args;
     va_start(args, inFormat);
-
+    std::cout << temp << std::endl;
 #if _WIN32
     _vsnprintf_s(temp, 4096, 4096, inFormat, args);
 #else
