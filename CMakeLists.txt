@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 3.0.0)
 
 project(LxSocket)
+#set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+set(CMAKE_EXPORT_COMPILECOMMANDS ON)
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+ 
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+set(VCPKG_TARGET_TRIPLET x64-windows)
+endif()
 
 include(CheckCXXCompilerFlag)
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xclang -ast-print -fsyntax-only")
@@ -16,8 +23,7 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
   check_cxx_compiler_flag("-fstandalone-debug" COMPILER_SUPPORTS_DEBUG)
   if(COMPILER_SUPPORTS_DEBUG)
     set(CMAKE_CXX_FLAGS
-        "${CMAKE_CXX_FLAGS} -fstandalone-debug -D_GLIBCXX_DEBUG "
-    )
+        "${CMAKE_CXX_FLAGS} -fstandalone-debug -D_GLIBCXX_DEBUG ")
     message("Set debug flags " ${COMPILER_SUPPORTS_DEBUG})
   endif()
 

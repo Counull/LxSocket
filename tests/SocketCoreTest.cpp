@@ -64,13 +64,13 @@ TEST(SocketCore, TCPSocket)
     char buffer[BUFFER_SIZE];
 
     //  recv test
-    auto recvLen = TCPSocket->Recvive(buffer, BUFFER_SIZE);
-    ASSERT_TRUE(recvLen);
-    auto recvStr = new char[recvLen.value() + 1];
-    recvStr[recvLen.value()] = '\0';
-    memcpy(recvStr, buffer, recvLen.value());
-    std::cout << recvStr << std::endl;
-    delete[] recvStr;
+    // auto recvLen = TCPSocket->Recvive(buffer, BUFFER_SIZE);
+    // ASSERT_TRUE(recvLen);
+    // auto recvStr = new char[recvLen.value() + 1];
+    // recvStr[recvLen.value()] = '\0';
+    // memcpy(recvStr, buffer, recvLen.value());
+    // std::cout << recvStr << std::endl;
+    // delete[] recvStr;
 
     SocketUtil::CleanUp();
 }

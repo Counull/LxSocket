@@ -4,7 +4,6 @@ aux_source_directory(. SRC)
 find_library(WSOCK32_LIBRARY wsock32)
 find_library(WS2_32_LIBRARY ws2_32)
 message("******************************************")
-#message("wsock32:" ${wsock32})
-#message("ws2_32:" ${ws2_32})
+
 add_library(LxSocket STATIC ${SRC})
 target_link_libraries(LxSocket PUBLIC wsock32 ws2_32)
