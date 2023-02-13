@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.0.0)
 
 project(LxSocket)
-#set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+# set(CMAKE_TOOLCHAIN_FILE "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
 set(CMAKE_EXPORT_COMPILECOMMANDS ON)
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
- 
+  set(VCPKG_TARGET_TRIPLET x64-linux)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-set(VCPKG_TARGET_TRIPLET x64-windows)
+  set(VCPKG_TARGET_TRIPLET x64-windows)
 endif()
 
 include(CheckCXXCompilerFlag)
