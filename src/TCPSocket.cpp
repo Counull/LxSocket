@@ -2,7 +2,11 @@
 
 TCPSocket::~TCPSocket()
 {
-    closesocket(mSocket);
+ #if _WIN32
+	closesocket( mSocket );
+#else
+	close( mSocket );
+#endif
 }
 
 std::expected<int, SocketError> TCPSocket::Connect(const SocketAddress& inAddress)
@@ -58,14 +62,18 @@ std::expected<int, SocketError> TCPSocket::Recvive(void* inBuffer, int inLen)
 
 std::shared_ptr<TCPSocket> TCPSocket::Accept(SocketAddress& inFromAddr)
 {
-    int length = inFromAddr.GetSize();
-    auto newSocket = accept(mSocket, &inFromAddr.mSocketAddr, &length);
+    	socklen_t length = inFromAddr.GetSize();
+	SOCKET newSocket = accept( mSocket, &inFromAddr.mSocketAddr, &length );
 
-    if (newSocket != INVALID_SOCKET) {
-        return std::make_shared<TCPSocket>(TCPSocket(newSocket));
-    }
-    SocketUtil::ReportError("TCPSocket::Accept");
-    return nullptr;
+	if( newSocket != INVALID_SOCKET )
+	{
+		return TCPSocketPtr( new TCPSocket( newSocket ) );
+	}
+	else
+	{
+		SocketUtil::ReportError( "TCPSocket::Accept" );
+		return nullptr;
+	}
 }
 
 TCPSocket::TCPSocket(SOCKET inSocket)

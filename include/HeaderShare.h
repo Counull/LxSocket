@@ -10,7 +10,7 @@
 #include "Windows.h"
 #include "Ws2tcpip.h"
 
-
+#include <cassert>
 typedef int socklen_t;
 // typedef char* receiveBufer_t;
 #else
@@ -18,10 +18,11 @@ typedef int socklen_t;
 #include <fcntl.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <stdarg.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
-
+#include <stdlib.h>
 // typedef void* receiveBufer_t;
 typedef int SOCKET;
 const int NO_ERROR = 0;
@@ -31,7 +32,7 @@ const int WSAEWOULDBLOCK = EAGAIN;
 const int SOCKET_ERROR = -1;
 #endif
 
-#include <cassert>
+#include <cstring>
 #include <deque>
 #include <expected>
 #include <iostream>
@@ -50,8 +51,8 @@ using SocketError = int;
 #include "SocketAddressFactory.h"
 
 
-#include "StringUtils.h"
 #include "TCPSocket.h"
 #include "UDPSocket.h"
 #include "SocketUtil.h"
+#include "StringUtils.h"
 #endif

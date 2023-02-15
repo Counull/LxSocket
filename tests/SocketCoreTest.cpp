@@ -1,13 +1,6 @@
 #include "HeaderShare.h"
-#include "SocketAddress.h"
-#include "SocketAddressFactory.h"
-#include "SocketUtil.h"
-#include <expected>
 #include <gtest/gtest.h>
-#include <string.h>
-#include <synchapi.h>
-#include <vcruntime.h>
-#include <vcruntime_string.h>
+
 
 TEST(SocketCore, TestLink)
 {
@@ -30,6 +23,7 @@ void CreateAddress(SocketAddressPtr& addr, SocketAddressPtr& toRet)
 
 TEST(SocketCore, UDPSocket)
 {
+    
     SocketUtil::StaticInit();
     auto UDPSocket = SocketUtil::CreateUDPSocket(INET);
     SocketAddressPtr addr;
@@ -57,7 +51,7 @@ TEST(SocketCore, TCPSocket)
     ASSERT_TRUE(ret);
     auto data = "hello tcp";
     auto len = strlen(data);
-    Sleep(50);
+    sleep(50);
     auto sendLen = TCPSocket->Send(data, len);
     ASSERT_EQ(len, sendLen);
     constexpr size_t BUFFER_SIZE = 100;

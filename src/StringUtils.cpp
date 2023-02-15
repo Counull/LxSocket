@@ -1,23 +1,13 @@
 #include "HeaderShare.h"
-
-using namespace std;
+using std::string;
 #if !_WIN32
-extern const char** __argv;
-extern int __argc;
+
 void OutputDebugString(const char* inString)
 {
     printf("%s", inString);
 }
 #endif
 
-string StringUtils::GetCommandLineArg(int inIndex)
-{
-    if (inIndex < __argc) {
-        return string(__argv[inIndex]);
-    }
-
-    return string();
-}
 
 string StringUtils::Sprintf(const char* inFormat, ...)
 {
@@ -48,7 +38,7 @@ void StringUtils::Log(const char* inFormat, ...)
 
     va_list args;
     va_start(args, inFormat);
-    std::cout << temp << std::endl;
+
 #if _WIN32
     _vsnprintf_s(temp, 4096, 4096, inFormat, args);
 #else

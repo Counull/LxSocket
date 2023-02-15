@@ -1,7 +1,4 @@
 #include "HeaderShare.h"
-#include "TCPSocket.h"
-#include "UDPSocket.h"
-#include <winsock2.h>
 
 bool SocketUtil::StaticInit()
 {
@@ -63,8 +60,6 @@ TCPSocketPtr SocketUtil::CreateTCPSocket(SocketAddressFamily inFamily)
     ReportError("SocketUtil::CreateTCPSocket");
     return nullptr;
 }
-
-
 
 UDPSocketPtr SocketUtil::CreateUDPSocket(SocketAddressFamily inFamily)
 {

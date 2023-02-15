@@ -7,6 +7,7 @@
 class TCPSocket {
 public:
     ~TCPSocket();
+  
     std::expected<int, SocketError> Connect(const SocketAddress& inAddress);
     std::expected<int, SocketError> Bind(const SocketAddress& inAddress);
     std::expected<int, SocketError> Listen(int inBackLog = 32);

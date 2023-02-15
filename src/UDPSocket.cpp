@@ -1,11 +1,12 @@
 #include "HeaderShare.h"
-#include "SocketUtil.h"
-#include <expected>
-#include <winerror.h>
-#include <winsock2.h>
+
 UDPSocket::~UDPSocket()
 {
+#if _WIN32
     closesocket(mSocket);
+#else
+    close(mSocket);
+#endif
 }
 UDPSocket::UDPSocket(SOCKET inSocket)
     : mSocket(inSocket)
@@ -35,7 +36,7 @@ std::expected<int, SocketError> UDPSocket::SendTo(const void* inData, int inLen,
 
 std::expected<int, SocketError> UDPSocket::ReciveFrom(void* inBuffer, int inLen, SocketAddress& outFrom)
 {
-    int fromLen = outFrom.GetSize();
+    socklen_t fromLen = outFrom.GetSize();
     int readByteCount = recvfrom(mSocket, static_cast<char*>(inBuffer), inLen, 0, &outFrom.mSocketAddr, &fromLen);
     if (readByteCount >= 0) {
         return readByteCount;
@@ -46,8 +47,15 @@ std::expected<int, SocketError> UDPSocket::ReciveFrom(void* inBuffer, int inLen,
 
 std::expected<int, SocketError> UDPSocket::setNoneBlockMode(bool shouldBeNonBlocking)
 {
+
+#if _WIN32
     u_long arg = shouldBeNonBlocking ? 1 : 0;
     int result = ioctlsocket(mSocket, FIONBIO, &arg);
+#else
+    int flags = fcntl(mSocket, F_GETFL, 0);
+    flags = shouldBeNonBlocking ? (flags | O_NONBLOCK) : (flags & ~O_NONBLOCK);
+    int result = fcntl(mSocket, F_SETFL, flags);
+#endif
 
     if (result == SOCKET_ERROR) {
         SocketUtil::ReportError("UDPSocket::setNoneBlockMode");
